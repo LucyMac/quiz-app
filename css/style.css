@@ -7,7 +7,7 @@
 html {
 	width: 100%;
 	height: 100%;
-	background-color: #e0e0e0;
+	background-color: #c6c6c6;
 	font-family: 'Lato', sans-serif;
 	letter-spacing: 4px;
 }
@@ -17,11 +17,27 @@ div.container {
 	margin: 100px auto;
 }
 
-div#q-number, #question, .answers, .feedback {
+div#start, #q-number, #question, #answers, #feedback {
 	max-width: 750px;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
+}
+
+button {
+	border-radius: 10px;
+	font-weight: 700;
+	letter-spacing: 2px;
+	font-size: 1.1em;
+	margin: 10px 10px;
+	padding: 15px 65px;
+}
+
+button#new-quiz {
+	margin-top: 70px;
+	border: 2px solid #e1324b;
+	background-color: #e1324b;
+	color: #cfe7e7;
 }
 
 div#q-number {
@@ -30,55 +46,39 @@ div#q-number {
 	color: #fff;
 }
 
-div#question {
+div#question, #start {
 	padding: 30px 0;
 	font-size: 1.8em;
 	font-weight: 700;
 	color: #0c6d5b;
 }
 
-div.answers {
+div#answers {
 	padding: 40px 0;
+	display: none;
 }
 
 button.answer-unselected {
 	border: 2px solid #e1324b;
-	border-radius: 10px;
 	background-color: #cfe7e7;
 	color: #e1324b;
-	font-weight: 700;
-	letter-spacing: 2px;
-	font-size: 1.1em;
-	margin: 10px 10px;
-	padding: 17px 60px;
 }
 
 button.answer-selected {
 	border: 2px solid #e1324b;
-	border-radius: 10px;
 	background-color: #e1324b;
 	color: #cfe7e7;
-	font-weight: 700;
-	letter-spacing: 2px;
-	font-size: 1.1em;
-	margin: 10px 10px;
-	padding: 15px 65px;
 }
 
 button.answer-correct {
 	border: 2px solid #00a651;
-	border-radius: 10px;
 	background-color: #00a651;
 	color: #cfe7e7;
-	font-weight: 700;
-	letter-spacing: 2px;
-	font-size: 1.1em;
-	margin: 10px 10px;
-	padding: 15px 65px;
 }
 
-div.feedback {
+div#feedback {
 	margin-top: 20px;
+	display: none;
 }
 
 div.result {
@@ -92,9 +92,12 @@ div.result img {
 
 #correct {
 	color: #00a651;
-	display: none;
 }
 
 #incorrect {
 	color: #9e0039;
+}
+
+:focus {
+	outline: none;
 }
