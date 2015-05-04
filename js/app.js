@@ -1,11 +1,12 @@
 $(document).ready(function(){
 
+//creating object prototype for all questions
 	function Question(question, options, answer) {
 	  this.question = question;
 	  this.options = options;
 	  this.answer = answer;
 	}
-
+//creating instances of the Question object which contain actual question data and their answers
 	var question1 = new Question ('What is the capital of Kenya?', ['Timbuktu', 'Nairobi', 'Kinshasha'], 'Nairobi');
 
 	var question2 = new Question ('What was the first country to win the Football World Cup in 1930?', ['Italy', 'Brasil', 'Uruguay'], 'Uruguay');
@@ -18,61 +19,83 @@ $(document).ready(function(){
 
 	var question6 = new Question ('The Pythagorian theorem is a geometrical relation concerning which shape?', ['Circle', 'Acute triangle', 'right triangle'], 'right triangle');
 
+//creating an array with all the instances of Question, so we can call them by index (with the i variable)
+	var questionList = [question1, question2, question3, question4, question5, question6];
 
-	//creating var for question number so that nextQuestion() can work whatever the question number. 
+//creating variable so we can call the question we want when the user is going through the quiz 
 	var i = 0;
 
-	var progress = function
-	// 1) showing content for next question. This will happen for each new quiz, and after each question is answered. 
+//creating variable for the selected button so it's easy to switch CSS class on and off
+	var activeButton = "";
 
+// showing content for next question. This will happen for each new quiz (when 'Start quiz' button is pressed)
+//and after each question is answered. 
 	var nextQuestion = function() {
-		i++;
-		//question number is displayed in div#q-number
-		document.getElementById("q-number").show.innerHTML = "Question " + i;
+		//the following is only relevant after the first question has been answered, to set things back to beginning state.
+		activeButton.className = "answer-unselected";
+		document.getElementById("correct").style.display = "none";
+		document.getElementById("incorrect").style.display = "none";
 
-		//question is displayed in div#question
-		document.getElementById("question").innerHTML = question[i].question;
+		//this is necessary as the array index starts at 0 and so will always be 1 number below the question number
+		//we want to display. Example: "question 0" instead of "question 1". 
+		//Note: The value of i is only changed locally here as it is within a local variable 'questionNumber'.
+		var questionNumber = i + 1;
+
+		//question number is displayed in div#q-number
+		document.getElementById("q-number").innerHTML = "Question " + questionNumber + " of 6";
+
+		//current question is displayed in div#question
+		document.getElementById("question").innerHTML = questionList[i].question;
 
 		//displaying appropriate options in the 3 option buttons
 		document.getElementById("answers").style.display = "block";
-		document.getElementById("answer-a").innerHTML = question[i].options[0];
-		document.getElementById("answer-b").innerHTML = question[i].options[1];
-		document.getElementById("answer-c").innerHTML = question[i].options[2];
+		document.getElementById("answer-a").innerHTML = questionList[i].options[0];
+		document.getElementById("answer-b").innerHTML = questionList[i].options[1];
+		document.getElementById("answer-c").innerHTML = questionList[i].options[2];
 	}
 
-	// 2) Interaction when user selects an answer:
-			//on click: button style change --> button.answer-unselected becomes .answer-selected
+	//Interaction when user selects an answer:
+	
+	//on click change button style to 'selected'
+	var userGuess = function() {	//see 'click' event listener on lines 95-97
+		activeButton = this;	//'this' refers to the button that has just been clicked. 
+		activeButton.className = "answer-selected";
 
-	var userGuess = function() {	//onclick event in HTML <button#answer-a> <button#answer-b> <button#answer-c>
-		this.className = "answer-selected";  //Am I using 'this' correctly? I mean the button that was just clicked. 
+		//Finding the text value of:
+		//1) the user-clicked button ('activeButton')
+		var userAnswer = activeButton.textContent;
+		//2) the correct answer as defined in the question[i] object
+		var answer = questionList[i].answer;
 
-		var userAnswer = this.value;	//can I do this? Trying to make content of clicked button = userAnswer
-		var answer = question[i].answer.value;
-
+		//comparing the above text values to see if user is correct
 		var checkAnswer = function (answer, userAnswer) {
 			if (answer === userAnswer) {
-				document.getElementsByClassName("answer-selected").className = "answer-correct";
+				activeButton.className = "answer-correct";
 				document.getElementById("correct").style.display = "block";
 			}
 			else {
-				question[i].answer.className = "answer-correct";
+				questionList[i].answer.className = "answer-correct";
 				document.getElementById("incorrect").style.display = "block";
 			}
 		}
 
-		setTimeout(checkAnswer(answer, userAnswer),1000);
-		setTimeout(nextQuestion(),3000);
+		//Note: after setTimeOut method, either use anonymous function (l. 83)
+		//or refer to function by name with no brackets (l. 85)
+		setTimeout(function(){ checkAnswer(answer, userAnswer); },1000);
+		i++; 
+		setTimeout(nextQuestion,3000);
 	}
 
-//	LAUNCH QUIZ on click of 'start quiz' button	
-	var start = function() {		//onclick event in HTML <button#new-quiz>
-		document.getElementById("start") = "none";
+	//launching quiz on click of 'start quiz' button	
+	var start = function() {	//see 'click' event listener on line 100
+		document.getElementById("start").style.display = "none";
 		nextQuestion();
 	}
 
-//Counting user's progress through the quiz
-	var progress = function() {
-		console.log("Question " + i + " of 6");
-	}
+	//event listeners
+	document.getElementById("new-quiz").addEventListener("click", start);
+	document.getElementById("answer-a").addEventListener("click", userGuess);
+	document.getElementById("answer-b").addEventListener("click", userGuess);
+	document.getElementById("answer-c").addEventListener("click", userGuess);
 
-};
+});

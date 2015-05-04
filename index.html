@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>Quiz app</title>
 		<link rel="stylesheet" href="css/reset.css">
 		<link rel="stylesheet" href="css/style.css">
 		<link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
@@ -13,14 +13,14 @@
 		<div class="container">
 			<div id="start">
 				<p>Test your general knowledge!</p>
-				<button id="new-quiz" onclick="start()">Start quiz</button>
+				<button id="new-quiz">Start quiz</button>
 			</div>
 			<div id="q-number"></div>
 			<div id="question"></div>
 			<div id="answers">
-				<button class="answer-unselected" id="answer-a" onclick="userGuess()"></button>
-				<button class="answer-unselected" id="answer-b" onclick="userGuess()"></button>
-				<button class="answer-unselected" id="answer-c" onclick="userGuess()"></button>
+				<button class="answer-unselected" id="answer-a"></button>
+				<button class="answer-unselected" id="answer-b"></button>
+				<button class="answer-unselected" id="answer-c"></button>
 			</div>
 			<div id="feedback">
 				<div class="result" id="correct"><img src="images/tick.png" alt="tick">correct</div>
