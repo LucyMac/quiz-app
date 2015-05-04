@@ -78,7 +78,6 @@ button.answer-correct {
 
 div#feedback {
 	margin-top: 20px;
-	display: none;
 }
 
 div.result {
@@ -92,10 +91,12 @@ div.result img {
 
 #correct {
 	color: #00a651;
+	display: none;
 }
 
 #incorrect {
 	color: #9e0039;
+	display: none;
 }
 
 :focus {
