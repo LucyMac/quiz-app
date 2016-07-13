@@ -17,7 +17,7 @@ div.container {
 	margin: 100px auto;
 }
 
-div#start, #q-number, #question, #answers, #feedback {
+div#start, #q-number, #question, #answers, #feedback, #score {
 	max-width: 750px;
 	margin-left: auto;
 	margin-right: auto;
@@ -31,9 +31,10 @@ button {
 	font-size: 1.1em;
 	margin: 10px 10px;
 	padding: 15px 65px;
+	cursor: pointer;
 }
 
-button#new-quiz {
+button#new-quiz, #play-again {
 	margin-top: 70px;
 	border: 2px solid #e1324b;
 	background-color: #e1324b;
@@ -101,4 +102,9 @@ div.result img {
 
 :focus {
 	outline: none;
+}
+
+#score {
+	display: none;
+	font-size: 1.5em;
 }
